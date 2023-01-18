@@ -1,0 +1,296 @@
+[
+  {
+    "objectID": "index.html#how-i-coded-before-i-learned-about-targets",
+    "href": "index.html#how-i-coded-before-i-learned-about-targets",
+    "title": "Targets Package Tutorial",
+    "section": "How I coded before I learned about ‘targets’",
+    "text": "How I coded before I learned about ‘targets’\n\n\none code file\none change -> man(code) hunt\nrerun the whole file multiple times"
+  },
+  {
+    "objectID": "index.html#what-is-so-special-about-the-targets-package",
+    "href": "index.html#what-is-so-special-about-the-targets-package",
+    "title": "Targets Package Tutorial",
+    "section": "What is so special about the targets package?",
+    "text": "What is so special about the targets package?\n\nAccording to the {targets} R package user manual website\n\ncan maintain a reproducible workflow without much repetition\nskips tasks that are already up to date\nruns only the necessary computation\nsupports implicit parallel computing\nshows tangible evidence that the results match the underlying code and data"
+  },
+  {
+    "objectID": "index.html#prerequisite",
+    "href": "index.html#prerequisite",
+    "title": "Targets Package Tutorial",
+    "section": "Prerequisite",
+    "text": "Prerequisite\n\n\n\n\nThis training is for people who have intermediate knowledge of R programming!\nYou should have at least the following experiences:\nyou have\n\ncreated your own custom function\ncalled(sourced) a different code file\ncreated an R project"
+  },
+  {
+    "objectID": "index.html#example",
+    "href": "index.html#example",
+    "title": "Targets Package Tutorial",
+    "section": "Example",
+    "text": "Example"
+  },
+  {
+    "objectID": "index.html#example-1",
+    "href": "index.html#example-1",
+    "title": "Targets Package Tutorial",
+    "section": "Example",
+    "text": "Example\n\n{fig.align = “center”}"
+  },
+  {
+    "objectID": "index.html#example-2",
+    "href": "index.html#example-2",
+    "title": "Targets Package Tutorial",
+    "section": "Example",
+    "text": "Example\n\ntargets also allows users to automatically know how long each step and the whole process take"
+  },
+  {
+    "objectID": "index.html#ideal-workflow",
+    "href": "index.html#ideal-workflow",
+    "title": "Targets Package Tutorial",
+    "section": "Ideal workflow",
+    "text": "Ideal workflow\n\n\nVisualize your whole project workflow in your head\nDivide the workflow into separate steps\nCreate a custom function that does the work for each step\nUsing these functions, implement the targets package"
+  },
+  {
+    "objectID": "index.html#basic-workflow",
+    "href": "index.html#basic-workflow",
+    "title": "Targets Package Tutorial",
+    "section": "Basic workflow",
+    "text": "Basic workflow\n\n\nWithout targets package, finish coding\nDivide your workflow into separate steps\nCreate a custom function that does the work for each step\nUsing these functions, implement the targets package"
+  },
+  {
+    "objectID": "index.html#targets-is-not-a-panacea",
+    "href": "index.html#targets-is-not-a-panacea",
+    "title": "Targets Package Tutorial",
+    "section": "‘targets’ is not a panacea",
+    "text": "‘targets’ is not a panacea\n\n‘targets’ is not a package you should use every time!\nActually it is quite cumbersome to implement the package\nThus, implement only if:\n\nyou probably have to repeat your whole code lines multiple times\nthe overall structure of your coding would be complex\n\n\nIf it is a one-time job it is better not to use targets package!"
+  },
+  {
+    "objectID": "index.html#lets-install-the-targets-package",
+    "href": "index.html#lets-install-the-targets-package",
+    "title": "Targets Package Tutorial",
+    "section": "Let’s install the targets package",
+    "text": "Let’s install the targets package\n\n\n#installing the targets package\ninstall.packages(\"targets\")"
+  },
+  {
+    "objectID": "index.html#creating-an-r-project",
+    "href": "index.html#creating-an-r-project",
+    "title": "Targets Package Tutorial",
+    "section": "Creating an R project!",
+    "text": "Creating an R project!\nI strongly advise you to create an R project for your each work/research project!\nLet’s create a “gapminder” project at your desktop.\n\nFollow the section 6 of this webpage."
+  },
+  {
+    "objectID": "index.html#creating-the-one-and-only",
+    "href": "index.html#creating-the-one-and-only",
+    "title": "Targets Package Tutorial",
+    "section": "Creating the one and only",
+    "text": "Creating the one and only\n\nUsing the targets package, you should create the main R script by typing the following function!\nLet’s type the code lines in the R console which is the bottom left pane.\n\n#calling the targets package\nlibrary(targets)\n#creating the _targets.R script file\ntar_script()\n\nNow you should have _targets.R file in your project folder."
+  },
+  {
+    "objectID": "index.html#the-name-position-matters",
+    "href": "index.html#the-name-position-matters",
+    "title": "Targets Package Tutorial",
+    "section": "The name & position matters!",
+    "text": "The name & position matters!\n\n\nDo not change the name of this _targets.R file\nthe targets package will search and run the _targets.R file(default)\nthe _targets.R file should be directly placed at the project folder\n\n\nOf course it is possible to change the location and the name of _targets.R file.\nFor this, check out the Appendix part."
+  },
+  {
+    "objectID": "index.html#targets.r-file",
+    "href": "index.html#targets.r-file",
+    "title": "Targets Package Tutorial",
+    "section": "_targets.R file",
+    "text": "_targets.R file\n\nLet’s open the _targets.R file\nBy default, it would explain the basic structure of the _targets.R file."
+  },
+  {
+    "objectID": "index.html#basic-structure-of-the-_targets.r",
+    "href": "index.html#basic-structure-of-the-_targets.r",
+    "title": "Targets Package Tutorial",
+    "section": "basic structure of the _targets.R",
+    "text": "basic structure of the _targets.R\n\nLet’s check the first seven lines of code.\n\nlibrary(targets)\n# This is an example _targets.R file. Every\n# {targets} pipeline needs one.\n# Use tar_script() to create _targets.R and tar_edit()\n# to open it again for editing.\n# Then, run tar_make() to run the pipeline\n# and tar_read(summary) to view the results."
+  },
+  {
+    "objectID": "index.html#basic-structure-of-the-_targets.r-1",
+    "href": "index.html#basic-structure-of-the-_targets.r-1",
+    "title": "Targets Package Tutorial",
+    "section": "basic structure of the _targets.R",
+    "text": "basic structure of the _targets.R\n\nNext, you can directly define functions here\n\n# Define custom functions and other global objects.\n# This is where you write source(\\\"R/functions.R\\\")\n# if you keep your functions in external scripts.\nsumm <- function(dataset) {\n  summarize(dataset, mean_x = mean(x))\n}"
+  },
+  {
+    "objectID": "index.html#basic-structure-of-the-_targets.r-2",
+    "href": "index.html#basic-structure-of-the-_targets.r-2",
+    "title": "Targets Package Tutorial",
+    "section": "basic structure of the _targets.R",
+    "text": "basic structure of the _targets.R\n\nOR\nsave multiple custom functions at a certain folder and call them.\nLet’s assume we have created functions.R script file that has your custom functions and stored it at “…\\gapminder\\scripts\\functions” folder.\n\n#calling the functions.R script file\nsource(\"scripts/functions/functions.R\")"
+  },
+  {
+    "objectID": "index.html#basic-structure-of-the-_targets.r-3",
+    "href": "index.html#basic-structure-of-the-_targets.r-3",
+    "title": "Targets Package Tutorial",
+    "section": "basic structure of the _targets.R",
+    "text": "basic structure of the _targets.R"
+  },
+  {
+    "objectID": "index.html#basic-structure-of-the-_targets.r-4",
+    "href": "index.html#basic-structure-of-the-_targets.r-4",
+    "title": "Targets Package Tutorial",
+    "section": "basic structure of the _targets.R",
+    "text": "basic structure of the _targets.R\n\ncalling packages that you would need in the whole process\n\n# Set target-specific options such as packages.\ntar_option_set(packages = c(\"dplyr\", \"stringr\", \"stringi\", \n                            \"ggplot2\", \"data.table\", \"gapminder\"))"
+  },
+  {
+    "objectID": "index.html#basic-structure-of-the-_targets.r-5",
+    "href": "index.html#basic-structure-of-the-_targets.r-5",
+    "title": "Targets Package Tutorial",
+    "section": "basic structure of the _targets.R",
+    "text": "basic structure of the _targets.R\n\nDefining your whole workflow\n\n# End this file with a list of target objects.\nlist(\n  #step 1 \n  tar_target(data, #defining the step name\n             #defining what the step will do\n             data.frame(x = sample.int(100), y = sample.int(100))\n             #creating a data frame\n             ), \n  #step 2\n  tar_target(summary, #defining the step name\n             #calculating the average of x & y\n             summ(data)) \n)"
+  },
+  {
+    "objectID": "index.html#visualizing-the-workflow",
+    "href": "index.html#visualizing-the-workflow",
+    "title": "Targets Package Tutorial",
+    "section": "visualizing the workflow!",
+    "text": "visualizing the workflow!\n\nThere is a way to visualize the whole workflow\n\n#you need to additionally install visNetwork package\n#to run this function!\ntar_visnetwork()"
+  },
+  {
+    "objectID": "index.html#visualizing-the-workflow-1",
+    "href": "index.html#visualizing-the-workflow-1",
+    "title": "Targets Package Tutorial",
+    "section": "visualizing the workflow!",
+    "text": "visualizing the workflow!"
+  },
+  {
+    "objectID": "index.html#visualizing-the-workflow-2",
+    "href": "index.html#visualizing-the-workflow-2",
+    "title": "Targets Package Tutorial",
+    "section": "visualizing the workflow!",
+    "text": "visualizing the workflow!\nYou can interact with the graph!\nIf you click a shape, it shows its related dependencies."
+  },
+  {
+    "objectID": "index.html#objective-of-this-project",
+    "href": "index.html#objective-of-this-project",
+    "title": "Targets Package Tutorial",
+    "section": "objective of this project",
+    "text": "objective of this project\n\nUsing a data set from the gapminder package,\ngenerating a table that contains\n\naverage life expectancy per continent and year\naverage GDP per capita per continent and year"
+  },
+  {
+    "objectID": "index.html#checking-the-data",
+    "href": "index.html#checking-the-data",
+    "title": "Targets Package Tutorial",
+    "section": "checking the data",
+    "text": "checking the data\nLet’s check how the data is organized\n\nlibrary(gapminder)\ndata <- gapminder\nhead(data)\n\"# A tibble: 6 × 6\n  country     continent  year lifeExp      pop gdpPercap\n  <fct>       <fct>     <int>   <dbl>    <int>     <dbl>\n1 Afghanistan Asia       1952    28.8  8425333      779.\n2 Afghanistan Asia       1957    30.3  9240934      821.\n3 Afghanistan Asia       1962    32.0 10267083      853.\n4 Afghanistan Asia       1967    34.0 11537966      836.\n5 Afghanistan Asia       1972    36.1 13079460      740.\n6 Afghanistan Asia       1977    38.4 14880372      786.\""
+  },
+  {
+    "objectID": "index.html#creating-the-table",
+    "href": "index.html#creating-the-table",
+    "title": "Targets Package Tutorial",
+    "section": "creating the table",
+    "text": "creating the table\nLet’s create the summary table\n\nsum.df <- data %>%\n  group_by(continent, year) %>%\n  summarise(avg_lifeExp = mean(lifeExp),\n            avg_gdpPercap = mean(gdpPercap))\nhead(sum.df)\n\"  continent  year avg_lifeExp avg_gdpPercap\n  <fct>     <int>       <dbl>         <dbl>\n1 Africa     1952        39.1         1253.\n2 Africa     1957        41.3         1385.\n3 Africa     1962        43.3         1598.\n4 Africa     1967        45.3         2050.\n5 Africa     1972        47.5         2340.\n6 Africa     1977        49.6         2586.\""
+  },
+  {
+    "objectID": "index.html#integrating-the-workflow-into-the-targets-package",
+    "href": "index.html#integrating-the-workflow-into-the-targets-package",
+    "title": "Targets Package Tutorial",
+    "section": "integrating the workflow into the targets package!",
+    "text": "integrating the workflow into the targets package!\nLet’s create a function that returns the sum.df\nand save the function in an R script file “functions.R”\nunder the directory “…gapminder\\scripts” folder\n\nget_sum_table <- function(data){\n  #getting average life expectancy &  average gdpPercap per continent & year\n  sum.df <-  data %>%\n    group_by(continent, year) %>%\n    summarise(avg_lifeExp = mean(lifeExp),\n              avg_gdpPercap = mean(gdpPercap))\n  return(sum.df)\n}"
+  },
+  {
+    "objectID": "index.html#creating-_targets.r",
+    "href": "index.html#creating-_targets.r",
+    "title": "Targets Package Tutorial",
+    "section": "creating _targets.R",
+    "text": "creating _targets.R\nLet’s create the _targets.R file by typing tar_script() in the R console\n\nlibrary(targets)\ntar_script()"
+  },
+  {
+    "objectID": "index.html#setting-_targets.r-file",
+    "href": "index.html#setting-_targets.r-file",
+    "title": "Targets Package Tutorial",
+    "section": "setting _targets.R file",
+    "text": "setting _targets.R file\nFirst, let’s set which R script file and\nwhich packages we will use our project\n\nlibrary(targets)\n#calling in the \nsource(\"scripts/functions.R\")\n#if you need to call different R scripts\n#source(\"R/different_code.R\") \n\n# Set packages.\n##calling in dplyr, ggplot2, gapminder packages\ntar_option_set(packages = c(\"dplyr\", \"ggplot2\", \"gapminder\"))"
+  },
+  {
+    "objectID": "index.html#setting-_targets.r-file-1",
+    "href": "index.html#setting-_targets.r-file-1",
+    "title": "Targets Package Tutorial",
+    "section": "setting _targets.R file",
+    "text": "setting _targets.R file\nLet’s specify the steps in our project\nlibrary(targets)\n#calling in the \nsource(\"scripts/functions.R\")\n#if you need to call different R scripts\n#source(\"R/different_code.R\") \n\n# Set packages.\n##calling in dplyr, ggplot2, gapminder packages\ntar_option_set(packages = c(\"dplyr\", \"ggplot2\", \"gapminder\"))\n\n# End this file with a list of target objects.\nlist(\n  #reading in the gapminder data\n  tar_target(data, \n             as.data.table(gapminder::gapminder)),\n  #getting average life expectancy &\n  #average GDP per capita per continent & year\n  tar_target(sum_stat,\n             get_sum_table(data))\n)"
+  },
+  {
+    "objectID": "index.html#checking-the-workflow",
+    "href": "index.html#checking-the-workflow",
+    "title": "Targets Package Tutorial",
+    "section": "Checking the workflow",
+    "text": "Checking the workflow\nNow let’s check the workflow of our project\n\n#visualize the whole workflow\ntar_visnetwork()\n\nIf the _targets.R file has been wrongly set,\nit would generate an error message!"
+  },
+  {
+    "objectID": "index.html#lets-run-this",
+    "href": "index.html#lets-run-this",
+    "title": "Targets Package Tutorial",
+    "section": "Let’s run this!",
+    "text": "Let’s run this!\nIf no errors were produced, let’s run the script.\n\n#Running the whole script\ntar_make()"
+  },
+  {
+    "objectID": "index.html#successful-execution",
+    "href": "index.html#successful-execution",
+    "title": "Targets Package Tutorial",
+    "section": "successful execution",
+    "text": "successful execution"
+  },
+  {
+    "objectID": "index.html#how-can-i-access-the-output",
+    "href": "index.html#how-can-i-access-the-output",
+    "title": "Targets Package Tutorial",
+    "section": "how can I access the output?",
+    "text": "how can I access the output?\n\n\ntargets automatically stores the output of each step!"
+  },
+  {
+    "objectID": "index.html#how-can-i-access-the-output-1",
+    "href": "index.html#how-can-i-access-the-output-1",
+    "title": "Targets Package Tutorial",
+    "section": "how can I access the output?",
+    "text": "how can I access the output?"
+  },
+  {
+    "objectID": "index.html#how-can-i-access-the-output-2",
+    "href": "index.html#how-can-i-access-the-output-2",
+    "title": "Targets Package Tutorial",
+    "section": "how can I access the output?",
+    "text": "how can I access the output?"
+  },
+  {
+    "objectID": "index.html#accessing-the-output-files",
+    "href": "index.html#accessing-the-output-files",
+    "title": "Targets Package Tutorial",
+    "section": "Accessing the output files",
+    "text": "Accessing the output files\nYou can read the files in the R studio by\n\n#reading the output of the step \"sum_stat\"\n##only works if you set the working directory as\n##the project folder\nsum.df <- tar_read(sum_stat)\n\n\"OR\"\n\n#by default files are stored in RDS format\nsum.df <- readRDS(\"_targets/objects/sum_stat\")\n\nAlso, you can change the data format of the outputs(check the appendix part)"
+  },
+  {
+    "objectID": "index.html#without-targets",
+    "href": "index.html#without-targets",
+    "title": "Targets Package Tutorial",
+    "section": "Without targets",
+    "text": "Without targets\n\nNow let’s start a more advanced example.\nLet’s say, I would like to do an econometric analysis for each continent.\nThe usual way to do this is like below:\n\n#pseudo code\n#clean data\ncleaned.df <- clean_data(continent)\nfor(continent in continents){\n  #econometric analysis\n  result <- regress(cleaned.df)\n  \n  #table\n  result_table <- gen_table(result)\n  \n  #graphs\n  graphs <- gen_plot(result)\n}"
+  },
+  {
+    "objectID": "index.html#with-targets",
+    "href": "index.html#with-targets",
+    "title": "Targets Package Tutorial",
+    "section": "With targets",
+    "text": "With targets\n\nWith targets you can do this automatically!\nLet"
+  },
+  {
+    "objectID": "index.html#example-setting",
+    "href": "index.html#example-setting",
+    "title": "Targets Package Tutorial",
+    "section": "Example setting",
+    "text": "Example setting\n\nLet’s try to graph the temporal change of life expectancy of countries in each continent."
+  },
+  {
+    "objectID": "index.html#changing-the-namelocation-of-_targets.r",
+    "href": "index.html#changing-the-namelocation-of-_targets.r",
+    "title": "Targets Package Tutorial",
+    "section": "changing the name/location of _targets.R",
+    "text": "changing the name/location of _targets.R\ntargets package automatically runs _targets.R file located at the project directory\nto change this,\n\n#telling targets to run _targets_pattern.R \n#located at \".../scripts\"\ntar_config_set(script = \"scripts/2._targets_pattern.R\")"
+  },
+  {
+    "objectID": "index.html#changing-the-data-format-for-output-files",
+    "href": "index.html#changing-the-data-format-for-output-files",
+    "title": "Targets Package Tutorial",
+    "section": "changing the data format for output files",
+    "text": "changing the data format for output files\nchanging to parquet format"
+  }
+]
