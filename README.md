@@ -1,3 +1,4 @@
+# targets_training
 This repositroy is dedicated to storing code files for preparing a training session: ***Introduction to 'target's package***. 
 
 One can access the slides from https://jongohkim91.github.io/targets_training/.
