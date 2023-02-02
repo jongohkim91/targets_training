@@ -336,7 +336,7 @@ If you click a shape, it shows its related dependencies.
 
 Using a data set from the gapminder package,
 
-generating a table that contains
+let's generate a table that contains
 
 -   average life expectancy per continent and year
 -   average GDP per capita per continent and year
