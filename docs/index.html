@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.2.269">
 
   <meta name="author" content="Jongoh Kim">
-  <meta name="dcterms.date" content="2023-01-17">
+  <meta name="dcterms.date" content="2023-02-02">
   <title>Targets Package Tutorial</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -403,7 +403,7 @@ Jongoh Kim
     </div>
 </div>
 
-  <p class="date">January 17, 2023</p>
+  <p class="date">February 2, 2023</p>
 </section>
 <section>
 <section id="introduction" class="title-slide slide level1 center">
@@ -468,8 +468,9 @@ Jongoh Kim
 <section id="example-1" class="slide level2">
 <h2>Example</h2>
 <p><br></p>
-<p><img data-src="img/ludivine_after.jpeg">{fig.align = “center”}</p>
-</section>
+<p>Let’s say I change the isco_code.</p>
+
+<img data-src="img/ludivine_after.jpeg" data-fig.align="center" class="r-stretch"></section>
 <section id="example-2" class="slide level2">
 <h2>Example</h2>
 <p><br></p>
@@ -697,16 +698,17 @@ Jongoh Kim
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>sum.df <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
 <span id="cb10-2"><a href="#cb10-2"></a>  <span class="fu">group_by</span>(continent, year) <span class="sc">%&gt;%</span></span>
 <span id="cb10-3"><a href="#cb10-3"></a>  <span class="fu">summarise</span>(<span class="at">avg_lifeExp =</span> <span class="fu">mean</span>(lifeExp),</span>
-<span id="cb10-4"><a href="#cb10-4"></a>            <span class="at">avg_gdpPercap =</span> <span class="fu">mean</span>(gdpPercap))</span>
-<span id="cb10-5"><a href="#cb10-5"></a><span class="fu">head</span>(sum.df)</span>
-<span id="cb10-6"><a href="#cb10-6"></a><span class="st">"  continent  year avg_lifeExp avg_gdpPercap</span></span>
-<span id="cb10-7"><a href="#cb10-7"></a><span class="st">  &lt;fct&gt;     &lt;int&gt;       &lt;dbl&gt;         &lt;dbl&gt;</span></span>
-<span id="cb10-8"><a href="#cb10-8"></a><span class="st">1 Africa     1952        39.1         1253.</span></span>
-<span id="cb10-9"><a href="#cb10-9"></a><span class="st">2 Africa     1957        41.3         1385.</span></span>
-<span id="cb10-10"><a href="#cb10-10"></a><span class="st">3 Africa     1962        43.3         1598.</span></span>
-<span id="cb10-11"><a href="#cb10-11"></a><span class="st">4 Africa     1967        45.3         2050.</span></span>
-<span id="cb10-12"><a href="#cb10-12"></a><span class="st">5 Africa     1972        47.5         2340.</span></span>
-<span id="cb10-13"><a href="#cb10-13"></a><span class="st">6 Africa     1977        49.6         2586."</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-4"><a href="#cb10-4"></a>            <span class="at">avg_gdpPercap =</span> <span class="fu">mean</span>(gdpPercap)) <span class="sc">%&gt;%</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb10-6"><a href="#cb10-6"></a><span class="fu">head</span>(sum.df)</span>
+<span id="cb10-7"><a href="#cb10-7"></a><span class="st">"  continent  year avg_lifeExp avg_gdpPercap</span></span>
+<span id="cb10-8"><a href="#cb10-8"></a><span class="st">  &lt;fct&gt;     &lt;int&gt;       &lt;dbl&gt;         &lt;dbl&gt;</span></span>
+<span id="cb10-9"><a href="#cb10-9"></a><span class="st">1 Africa     1952        39.1         1253.</span></span>
+<span id="cb10-10"><a href="#cb10-10"></a><span class="st">2 Africa     1957        41.3         1385.</span></span>
+<span id="cb10-11"><a href="#cb10-11"></a><span class="st">3 Africa     1962        43.3         1598.</span></span>
+<span id="cb10-12"><a href="#cb10-12"></a><span class="st">4 Africa     1967        45.3         2050.</span></span>
+<span id="cb10-13"><a href="#cb10-13"></a><span class="st">5 Africa     1972        47.5         2340.</span></span>
+<span id="cb10-14"><a href="#cb10-14"></a><span class="st">6 Africa     1977        49.6         2586."</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="integrating-the-workflow-into-the-targets-package" class="slide level2">
@@ -720,9 +722,10 @@ Jongoh Kim
 <span id="cb11-3"><a href="#cb11-3"></a>  sum.df <span class="ot">&lt;-</span>  data <span class="sc">%&gt;%</span></span>
 <span id="cb11-4"><a href="#cb11-4"></a>    <span class="fu">group_by</span>(continent, year) <span class="sc">%&gt;%</span></span>
 <span id="cb11-5"><a href="#cb11-5"></a>    <span class="fu">summarise</span>(<span class="at">avg_lifeExp =</span> <span class="fu">mean</span>(lifeExp),</span>
-<span id="cb11-6"><a href="#cb11-6"></a>              <span class="at">avg_gdpPercap =</span> <span class="fu">mean</span>(gdpPercap))</span>
-<span id="cb11-7"><a href="#cb11-7"></a>  <span class="fu">return</span>(sum.df)</span>
-<span id="cb11-8"><a href="#cb11-8"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-6"><a href="#cb11-6"></a>              <span class="at">avg_gdpPercap =</span> <span class="fu">mean</span>(gdpPercap)) <span class="sc">%&gt;%</span></span>
+<span id="cb11-7"><a href="#cb11-7"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb11-8"><a href="#cb11-8"></a>  <span class="fu">return</span>(sum.df)</span>
+<span id="cb11-9"><a href="#cb11-9"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="creating-_targets.r" class="slide level2">
@@ -783,6 +786,14 @@ Jongoh Kim
 <p>If the _targets.R file has been wrongly set,</p>
 <p>it would generate an error message!</p>
 </section>
+<section id="checking-the-workflow-1" class="slide level2">
+<h2>Checking the workflow</h2>
+<p>
+
+<iframe src="img/simple.html" width="900" height="600"> </iframe>
+
+</p>
+</section>
 <section id="lets-run-this" class="slide level2">
 <h2>Let’s run this!</h2>
 <p>If no errors were produced, let’s run the script.</p>
@@ -794,7 +805,7 @@ Jongoh Kim
 <section id="successful-execution" class="slide level2">
 <h2>successful execution</h2>
 
-<img data-src="img/targets_capture.png" data-fig.align="center" class="r-stretch"></section>
+<img data-src="img/simple_run.png" data-fig.align="center" class="r-stretch"></section>
 <section id="how-can-i-access-the-output" class="slide level2">
 <h2>how can I access the output?</h2>
 <p><br></p>
@@ -858,42 +869,136 @@ Jongoh Kim
 <h2>With targets</h2>
 <p><br></p>
 <p>With targets you can do this automatically!</p>
-<p>Let</p>
 <p><embed data-src="img/complex.html"></p>
 </section>
 <section id="example-setting" class="slide level2">
 <h2>Example setting</h2>
 <p><br></p>
 <p>Let’s try to graph the temporal change of life expectancy of countries in each continent.</p>
-</section></section>
-<section>
-<section id="parallelization" class="title-slide slide level1 center">
-<h1>Parallelization</h1>
-
 </section>
-<section id="section" class="slide level2">
-<h2></h2>
-</section></section>
+<section id="workflow" class="slide level2">
+<h2>Workflow</h2>
+<p><br></p>
+<p>
+
+<iframe src="img/complex.html" width="900" height="600"> </iframe>
+
+</p>
+</section>
+<section id="in-code" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">In code</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb19-1" class="hljs-ln-code"><a href="#cb19-1"></a><span class="fu">library</span>(targets)</span>
+<span id="cb19-2" class="hljs-ln-code"><a href="#cb19-2"></a><span class="fu">source</span>(<span class="st">"scripts/functions/pattern_functions.R"</span>)</span>
+<span id="cb19-3" class="hljs-ln-code"><a href="#cb19-3"></a><span class="co">#source("R/different_code.R")</span></span>
+<span id="cb19-4" class="hljs-ln-code"><a href="#cb19-4"></a></span>
+<span id="cb19-5" class="hljs-ln-code"><a href="#cb19-5"></a><span class="co"># # configuring the script it should run(run it one time and it will create an targets.yaml file in the project folder)</span></span>
+<span id="cb19-6" class="hljs-ln-code"><a href="#cb19-6"></a><span class="co"># tar_config_set(script = "scripts/2._targets_pattern.R")</span></span>
+<span id="cb19-7" class="hljs-ln-code"><a href="#cb19-7"></a></span>
+<span id="cb19-8" class="hljs-ln-code"><a href="#cb19-8"></a><span class="co"># Set packages.</span></span>
+<span id="cb19-9" class="hljs-ln-code"><a href="#cb19-9"></a><span class="fu">tar_option_set</span>(<span class="at">packages =</span> <span class="fu">c</span>(<span class="st">"qs"</span>, <span class="st">"dplyr"</span>, <span class="st">"stringr"</span>, <span class="st">"stringi"</span>, <span class="st">"ggplot2"</span>, <span class="st">"data.table"</span>, <span class="st">"gapminder"</span>),</span>
+<span id="cb19-10" class="hljs-ln-code"><a href="#cb19-10"></a>               <span class="at">format =</span> <span class="st">"qs"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="in-code-1" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">In code</h2>
+<div class="sourceCode" id="cb20" data-code-line-numbers="11-21"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb20-1" class="hljs-ln-code"><a href="#cb20-1"></a><span class="fu">library</span>(targets)</span>
+<span id="cb20-2" class="hljs-ln-code"><a href="#cb20-2"></a><span class="fu">source</span>(<span class="st">"scripts/functions/pattern_functions.R"</span>)</span>
+<span id="cb20-3" class="hljs-ln-code"><a href="#cb20-3"></a><span class="co">#source("R/different_code.R")</span></span>
+<span id="cb20-4" class="hljs-ln-code"><a href="#cb20-4"></a></span>
+<span id="cb20-5" class="hljs-ln-code"><a href="#cb20-5"></a><span class="co"># # configuring the script it should run(run it one time and it will create an targets.yaml file in the project folder)</span></span>
+<span id="cb20-6" class="hljs-ln-code"><a href="#cb20-6"></a><span class="co"># tar_config_set(script = "scripts/2._targets_pattern.R")</span></span>
+<span id="cb20-7" class="hljs-ln-code"><a href="#cb20-7"></a></span>
+<span id="cb20-8" class="hljs-ln-code"><a href="#cb20-8"></a><span class="co"># Set packages.</span></span>
+<span id="cb20-9" class="hljs-ln-code"><a href="#cb20-9"></a><span class="fu">tar_option_set</span>(<span class="at">packages =</span> <span class="fu">c</span>(<span class="st">"qs"</span>, <span class="st">"dplyr"</span>, <span class="st">"stringr"</span>, <span class="st">"stringi"</span>, <span class="st">"ggplot2"</span>, <span class="st">"data.table"</span>, <span class="st">"gapminder"</span>),</span>
+<span id="cb20-10" class="hljs-ln-code"><a href="#cb20-10"></a>               <span class="at">format =</span> <span class="st">"qs"</span>)</span>
+<span id="cb20-11" class="hljs-ln-code"><a href="#cb20-11"></a></span>
+<span id="cb20-12" class="hljs-ln-code"><a href="#cb20-12"></a><span class="co"># End this file with a list of target objects.</span></span>
+<span id="cb20-13" class="hljs-ln-code"><a href="#cb20-13"></a><span class="fu">list</span>(</span>
+<span id="cb20-14" class="hljs-ln-code"><a href="#cb20-14"></a>  <span class="co">#reading in the gapminder data</span></span>
+<span id="cb20-15" class="hljs-ln-code"><a href="#cb20-15"></a>  <span class="fu">tar_target</span>(data, </span>
+<span id="cb20-16" class="hljs-ln-code"><a href="#cb20-16"></a>             <span class="fu">as.data.table</span>(gapminder<span class="sc">::</span>gapminder)),</span>
+<span id="cb20-17" class="hljs-ln-code"><a href="#cb20-17"></a>  </span>
+<span id="cb20-18" class="hljs-ln-code"><a href="#cb20-18"></a>  <span class="co">#getting the continents in the gapminder data</span></span>
+<span id="cb20-19" class="hljs-ln-code"><a href="#cb20-19"></a>  <span class="fu">tar_target</span>(continents, </span>
+<span id="cb20-20" class="hljs-ln-code"><a href="#cb20-20"></a>             <span class="fu">sort</span>(<span class="fu">unique</span>(data<span class="sc">$</span>continent))),</span>
+<span id="cb20-21" class="hljs-ln-code"><a href="#cb20-21"></a>                 </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="in-code-2" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">In code</h2>
+<p>Do the same process for each continent!</p>
+<div class="sourceCode" id="cb21" data-code-line-numbers="22-31"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb21-1" class="hljs-ln-code"><a href="#cb21-1"></a><span class="fu">library</span>(targets)</span>
+<span id="cb21-2" class="hljs-ln-code"><a href="#cb21-2"></a><span class="fu">source</span>(<span class="st">"scripts/functions/pattern_functions.R"</span>)</span>
+<span id="cb21-3" class="hljs-ln-code"><a href="#cb21-3"></a><span class="co">#source("R/different_code.R")</span></span>
+<span id="cb21-4" class="hljs-ln-code"><a href="#cb21-4"></a></span>
+<span id="cb21-5" class="hljs-ln-code"><a href="#cb21-5"></a><span class="co"># # configuring the script it should run(run it one time and it will create an targets.yaml file in the project folder)</span></span>
+<span id="cb21-6" class="hljs-ln-code"><a href="#cb21-6"></a><span class="co"># tar_config_set(script = "scripts/2._targets_pattern.R")</span></span>
+<span id="cb21-7" class="hljs-ln-code"><a href="#cb21-7"></a></span>
+<span id="cb21-8" class="hljs-ln-code"><a href="#cb21-8"></a><span class="co"># Set packages.</span></span>
+<span id="cb21-9" class="hljs-ln-code"><a href="#cb21-9"></a><span class="fu">tar_option_set</span>(<span class="at">packages =</span> <span class="fu">c</span>(<span class="st">"qs"</span>, <span class="st">"dplyr"</span>, <span class="st">"stringr"</span>, <span class="st">"stringi"</span>, <span class="st">"ggplot2"</span>, <span class="st">"data.table"</span>, <span class="st">"gapminder"</span>),</span>
+<span id="cb21-10" class="hljs-ln-code"><a href="#cb21-10"></a>               <span class="at">format =</span> <span class="st">"qs"</span>)</span>
+<span id="cb21-11" class="hljs-ln-code"><a href="#cb21-11"></a></span>
+<span id="cb21-12" class="hljs-ln-code"><a href="#cb21-12"></a><span class="co"># End this file with a list of target objects.</span></span>
+<span id="cb21-13" class="hljs-ln-code"><a href="#cb21-13"></a><span class="fu">list</span>(</span>
+<span id="cb21-14" class="hljs-ln-code"><a href="#cb21-14"></a>  <span class="co">#reading in the gapminder data</span></span>
+<span id="cb21-15" class="hljs-ln-code"><a href="#cb21-15"></a>  <span class="fu">tar_target</span>(data, </span>
+<span id="cb21-16" class="hljs-ln-code"><a href="#cb21-16"></a>             <span class="fu">as.data.table</span>(gapminder<span class="sc">::</span>gapminder)),</span>
+<span id="cb21-17" class="hljs-ln-code"><a href="#cb21-17"></a>  </span>
+<span id="cb21-18" class="hljs-ln-code"><a href="#cb21-18"></a>  <span class="co">#getting the continents in the gapminder data</span></span>
+<span id="cb21-19" class="hljs-ln-code"><a href="#cb21-19"></a>  <span class="fu">tar_target</span>(continents, </span>
+<span id="cb21-20" class="hljs-ln-code"><a href="#cb21-20"></a>             <span class="fu">sort</span>(<span class="fu">unique</span>(data<span class="sc">$</span>continent))),</span>
+<span id="cb21-21" class="hljs-ln-code"><a href="#cb21-21"></a>             </span>
+<span id="cb21-22" class="hljs-ln-code"><a href="#cb21-22"></a>  <span class="co">#slicing the gapminder data by continents</span></span>
+<span id="cb21-23" class="hljs-ln-code"><a href="#cb21-23"></a>  <span class="fu">tar_target</span>(continents_data, </span>
+<span id="cb21-24" class="hljs-ln-code"><a href="#cb21-24"></a>             data[continent <span class="sc">%in%</span> continents],</span>
+<span id="cb21-25" class="hljs-ln-code"><a href="#cb21-25"></a>             <span class="at">pattern =</span> <span class="fu">map</span>(continents)),</span>
+<span id="cb21-26" class="hljs-ln-code"><a href="#cb21-26"></a>  </span>
+<span id="cb21-27" class="hljs-ln-code"><a href="#cb21-27"></a>  <span class="co">#generating a graph of showing temporal changes of life expectancy of each country in each continent!</span></span>
+<span id="cb21-28" class="hljs-ln-code"><a href="#cb21-28"></a>  <span class="fu">tar_target</span>(get_graph,</span>
+<span id="cb21-29" class="hljs-ln-code"><a href="#cb21-29"></a>             <span class="fu">gen_graph</span>(continents_data),</span>
+<span id="cb21-30" class="hljs-ln-code"><a href="#cb21-30"></a>             <span class="at">pattern =</span> <span class="fu">map</span>(continents_data))</span>
+<span id="cb21-31" class="hljs-ln-code"><a href="#cb21-31"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="resulted-graphs" class="slide level2">
+<h2>Resulted Graphs</h2>
+
+<img data-src="img/Africa_lifeExp_graph.jpg" data-fig.align="center" class="r-stretch"></section>
+<section id="resulted-graphs-1" class="slide level2">
+<h2>Resulted Graphs</h2>
+
+<img data-src="img/Americas_lifeExp_graph.jpg" data-fig.align="center" class="r-stretch"></section>
+<section id="resulted-graphs-2" class="slide level2">
+<h2>Resulted Graphs</h2>
+
+<img data-src="img/Asia_lifeExp_graph.jpg" data-fig.align="center" class="r-stretch"></section>
+<section id="resulted-graphs-3" class="slide level2">
+<h2>Resulted Graphs</h2>
+
+<img data-src="img/Europe_lifeExp_graph.jpg" data-fig.align="center" class="r-stretch"></section>
+<section id="resulted-graphs-4" class="slide level2">
+<h2>Resulted Graphs</h2>
+
+<img data-src="img/Oceania_lifeExp_graph.jpg" data-fig.align="center" class="r-stretch"></section></section>
 <section id="thanks" class="title-slide slide level1 center">
 <h1>Thanks!</h1>
 <p><br></p>
 <p>Special thanks to <a href="https://github.com/etiennebacher">Etienne Bacher</a> for his help and slide codes!</p>
 <p><br></p>
 <p>Source code for slides:</p>
-<p><a href="https://github.com/jongohkim91/R-A-Z/tree/master/markdown" class="external" target="_blank">https://github.com/jongohkim91/R-A-Z/index.qmd</a></p>
+<p><a href="https://github.com/jongohkim91/targets_training/blob/master/index.qmd" class="external" target="_blank">https://github.com/jongohkim91/targets_training/blob/master/index.qmd</a></p>
 <p><br></p>
 </section>
 
 <section id="good-resources" class="title-slide slide level1 center">
 <h1>Good resources</h1>
-<p>R for Data Science from Hadley Wickham and Garrett Grolemund:</p>
-<p><a href="https://r4ds.had.co.nz/" class="external" target="_blank">https://r4ds.had.co.nz/</a></p>
+<p>The {targets} R package user manual from Will Landau(The creator of ‘targets’ package)</p>
+<p><a href="https://books.ropensci.org/targets/" class="external" target="_blank">https://books.ropensci.org/targets/</a></p>
 <p><br></p>
-<p>ggplot2:</p>
-<p><a href="https://ggplot2.tidyverse.org/" class="external" target="_blank">https://ggplot2.tidyverse.org/</a></p>
+<p>Will Landau’s Presentation at UL HPC 2021 Winter School</p>
+<p><a href="https://ulhpc-tutorials.readthedocs.io/en/latest/maths/R/" class="external" target="_blank">https://ulhpc-tutorials.readthedocs.io/en/latest/maths/R/</a></p>
 <p><br></p>
-<p>R Markdown: The Definitive Guide from Yihui Xie, J. J. Allaire, and Garrett Grolemund:</p>
-<p><a href="https://bookdown.org/yihui/rmarkdown/" class="external" target="_blank">https://bookdown.org/yihui/rmarkdown/</a></p>
+<p>Will Landau’s Full Tutorial Video</p>
+<p><a href="https://youtu.be/FlDCM1l6XEU" class="external" target="_blank">https://youtu.be/FlDCM1l6XEU</a></p>
 </section>
 
 <section>
@@ -903,19 +1008,39 @@ Jongoh Kim
 </section>
 <section id="changing-the-namelocation-of-_targets.r" class="slide level2">
 <h2>changing the name/location of _targets.R</h2>
+<p><br></p>
 <p>targets package automatically runs _targets.R file located at the project directory</p>
 <p>to change this,</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="co">#telling targets to run _targets_pattern.R </span></span>
-<span id="cb19-2"><a href="#cb19-2"></a><span class="co">#located at ".../scripts"</span></span>
-<span id="cb19-3"><a href="#cb19-3"></a><span class="fu">tar_config_set</span>(<span class="at">script =</span> <span class="st">"scripts/2._targets_pattern.R"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="co">#telling targets to run _targets_pattern.R </span></span>
+<span id="cb22-2"><a href="#cb22-2"></a><span class="co">#located at ".../scripts"</span></span>
+<span id="cb22-3"><a href="#cb22-3"></a><span class="fu">tar_config_set</span>(<span class="at">script =</span> <span class="st">"scripts/2._targets_pattern.R"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="changing-the-namelocation-of-_targets.r-1" class="slide level2">
+<h2>changing the name/location of _targets.R</h2>
+<p><br></p>
+<p>OR</p>
+<p>Create a _targets.yaml file at your project folder! Open a notepad, write the code lines below, and store it with the name: _targets.yaml.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb23-1"><a href="#cb23-1"></a><span class="fu">main</span><span class="kw">:</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a><span class="at">  </span><span class="fu">script</span><span class="kw">:</span><span class="at"> scripts/1._targets.R</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="changing-the-data-format-for-output-files" class="slide level2">
 <h2>changing the data format for output files</h2>
 <p>changing to parquet format</p>
 <div class="cell">
-
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="co">#for the whole pipeline!</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a><span class="fu">tar_option_set</span>(<span class="at">format =</span> <span class="st">"parquet"</span>) <span class="co"># you need to download the arrow package!</span></span>
+<span id="cb24-3"><a href="#cb24-3"></a><span class="st">"Note that you can only have a dataframe(table) as an output for parquet!"</span></span>
+<span id="cb24-4"><a href="#cb24-4"></a><span class="co">#for general purpose use qs instead</span></span>
+<span id="cb24-5"><a href="#cb24-5"></a><span class="fu">tar_option_set</span>(<span class="at">format =</span> <span class="st">"qs"</span>) <span class="co"># you need to download the qs package!</span></span>
+<span id="cb24-6"><a href="#cb24-6"></a></span>
+<span id="cb24-7"><a href="#cb24-7"></a><span class="co">#for each step</span></span>
+<span id="cb24-8"><a href="#cb24-8"></a><span class="fu">tar_target</span>(step,</span>
+<span id="cb24-9"><a href="#cb24-9"></a>           <span class="fu">print</span>(<span class="st">"a step"</span>),</span>
+<span id="cb24-10"><a href="#cb24-10"></a>           <span class="at">format =</span> <span class="st">"qs"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 <div class="footer footer-default">

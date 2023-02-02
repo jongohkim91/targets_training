@@ -93,7 +93,9 @@ you have
 
 <br>
 
-![](img/ludivine_after.jpeg)
+Let's say I change the isco_code.
+
+![](img/ludivine_after.jpeg){fig.align="center"}
 
 ## Example
 
@@ -366,7 +368,8 @@ Let's create the summary table
 sum.df <- data %>%
   group_by(continent, year) %>%
   summarise(avg_lifeExp = mean(lifeExp),
-            avg_gdpPercap = mean(gdpPercap))
+            avg_gdpPercap = mean(gdpPercap)) %>%
+  ungroup()
 head(sum.df)
 "  continent  year avg_lifeExp avg_gdpPercap
   <fct>     <int>       <dbl>         <dbl>
@@ -392,7 +395,8 @@ get_sum_table <- function(data){
   sum.df <-  data %>%
     group_by(continent, year) %>%
     summarise(avg_lifeExp = mean(lifeExp),
-              avg_gdpPercap = mean(gdpPercap))
+              avg_gdpPercap = mean(gdpPercap)) %>%
+  ungroup()
   return(sum.df)
 }
 ```
@@ -465,6 +469,14 @@ If the \_targets.R file has been wrongly set,
 
 it would generate an error message!
 
+## Checking the workflow
+
+<!--html_preserve-->
+
+<iframe src = "img/simple.html" width="900" height="600"> </iframe>
+
+<!--/html_preserve-->
+
 ## Let's run this!
 
 If no errors were produced, let's run the script.
@@ -476,7 +488,7 @@ tar_make()
 
 ## successful execution
 
-![](img/targets_capture.png){fig.align="center"}
+![](img/simple_run.png){fig.align="center"}
 
 ## how can I access the output?
 
@@ -548,7 +560,6 @@ for(continent in continents){
 
 With targets you can do this automatically!
 
-Let
 
 ![](img/complex.html)
 
@@ -558,9 +569,117 @@ Let
 
 Let's try to graph the temporal change of life expectancy of countries in each continent.
 
-# Parallelization
+## Workflow
 
-## 
+<br>
+
+<!--html_preserve-->
+
+<iframe src = "img/complex.html" width="900" height="600"> </iframe>
+
+<!--/html_preserve-->
+
+## In code {auto-animate="true"}
+
+```{r}
+library(targets)
+source("scripts/functions/pattern_functions.R")
+#source("R/different_code.R")
+
+# # configuring the script it should run(run it one time and it will create an targets.yaml file in the project folder)
+# tar_config_set(script = "scripts/2._targets_pattern.R")
+
+# Set packages.
+tar_option_set(packages = c("qs", "dplyr", "stringr", "stringi", "ggplot2", "data.table", "gapminder"),
+               format = "qs")
+```
+
+## In code {auto-animate="true"}
+
+```{.r code-line-numbers="11-21"}
+library(targets)
+source("scripts/functions/pattern_functions.R")
+#source("R/different_code.R")
+
+# # configuring the script it should run(run it one time and it will create an targets.yaml file in the project folder)
+# tar_config_set(script = "scripts/2._targets_pattern.R")
+
+# Set packages.
+tar_option_set(packages = c("qs", "dplyr", "stringr", "stringi", "ggplot2", "data.table", "gapminder"),
+               format = "qs")
+
+# End this file with a list of target objects.
+list(
+  #reading in the gapminder data
+  tar_target(data, 
+             as.data.table(gapminder::gapminder)),
+  
+  #getting the continents in the gapminder data
+  tar_target(continents, 
+             sort(unique(data$continent))),
+                 
+```
+
+## In code {auto-animate="true"}
+
+Do the same process for each continent!
+
+```{.r code-line-numbers="22-31"}
+library(targets)
+source("scripts/functions/pattern_functions.R")
+#source("R/different_code.R")
+
+# # configuring the script it should run(run it one time and it will create an targets.yaml file in the project folder)
+# tar_config_set(script = "scripts/2._targets_pattern.R")
+
+# Set packages.
+tar_option_set(packages = c("qs", "dplyr", "stringr", "stringi", "ggplot2", "data.table", "gapminder"),
+               format = "qs")
+
+# End this file with a list of target objects.
+list(
+  #reading in the gapminder data
+  tar_target(data, 
+             as.data.table(gapminder::gapminder)),
+  
+  #getting the continents in the gapminder data
+  tar_target(continents, 
+             sort(unique(data$continent))),
+             
+  #slicing the gapminder data by continents
+  tar_target(continents_data, 
+             data[continent %in% continents],
+             pattern = map(continents)),
+  
+  #generating a graph of showing temporal changes of life expectancy of each country in each continent!
+  tar_target(get_graph,
+             gen_graph(continents_data),
+             pattern = map(continents_data))
+)
+```
+
+## Resulted Graphs
+
+![](img/Africa_lifeExp_graph.jpg){fig.align="center"}
+
+## Resulted Graphs
+
+![](img/Americas_lifeExp_graph.jpg){fig.align="center"}
+
+
+## Resulted Graphs
+
+![](img/Asia_lifeExp_graph.jpg){fig.align="center"}
+
+
+## Resulted Graphs
+
+![](img/Europe_lifeExp_graph.jpg){fig.align="center"}
+
+
+## Resulted Graphs
+
+![](img/Oceania_lifeExp_graph.jpg){fig.align="center"}
 
 # Thanks!
 
@@ -573,36 +692,37 @@ his help and slide codes!
 
 Source code for slides:
 
-[https://github.com/jongohkim91/R-A-Z/index.qmd](https://github.com/jongohkim91/R-A-Z/tree/master/markdown){.external
+[https://github.com/jongohkim91/targets_training/blob/master/index.qmd](https://github.com/jongohkim91/targets_training/blob/master/index.qmd){.external
 target="_blank"}
 
 <br>
 
 # Good resources
 
-R for Data Science from Hadley Wickham and Garrett Grolemund:
+The {targets} R package user manual from Will Landau(The creator of 'targets' package)
 
-[https://r4ds.had.co.nz/](https://r4ds.had.co.nz/){.external
+[https://books.ropensci.org/targets/](https://books.ropensci.org/targets/){.external
 target="_blank"}
 
 <br>
 
-ggplot2:
+Will Landau's Presentation at UL HPC 2021 Winter School
 
-[https://ggplot2.tidyverse.org/](https://ggplot2.tidyverse.org/){.external
+[https://ulhpc-tutorials.readthedocs.io/en/latest/maths/R/](https://ulhpc-tutorials.readthedocs.io/en/latest/maths/R/){.external
 target="_blank"}
 
 <br>
 
-R Markdown: The Definitive Guide from Yihui Xie, J. J. Allaire, and
-Garrett Grolemund:
+Will Landau's Full Tutorial Video
 
-[https://bookdown.org/yihui/rmarkdown/](https://bookdown.org/yihui/rmarkdown/){.external
+[https://youtu.be/FlDCM1l6XEU](https://youtu.be/FlDCM1l6XEU){.external
 target="_blank"}
 
 # Appendix
 
 ## changing the name/location of \_targets.R
+
+<br>
 
 targets package automatically runs \_targets.R file located at the
 project directory
@@ -615,10 +735,32 @@ to change this,
 tar_config_set(script = "scripts/2._targets_pattern.R")
 ```
 
+## changing the name/location of \_targets.R
+
+<br>
+
+OR
+
+Create a \_targets.yaml file at your project folder!
+Open a notepad, write the code lines below, and store it with the name: \_targets.yaml.
+```{yaml}
+main:
+  script: scripts/1._targets.R
+```
+
 ## changing the data format for output files
 
 changing to parquet format
 
 ```{r}
+#for the whole pipeline!
+tar_option_set(format = "parquet") # you need to download the arrow package!
+"Note that you can only have a dataframe(table) as an output for parquet!"
+#for general purpose use qs instead
+tar_option_set(format = "qs") # you need to download the qs package!
 
+#for each step
+tar_target(step,
+           print("a step"),
+           format = "qs")
 ```

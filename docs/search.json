@@ -32,7 +32,7 @@
     "href": "index.html#example-1",
     "title": "Targets Package Tutorial",
     "section": "Example",
-    "text": "Example\n\n{fig.align = “center”}"
+    "text": "Example\n\nLet’s say I change the isco_code."
   },
   {
     "objectID": "index.html#example-2",
@@ -179,14 +179,14 @@
     "href": "index.html#creating-the-table",
     "title": "Targets Package Tutorial",
     "section": "creating the table",
-    "text": "creating the table\nLet’s create the summary table\n\nsum.df <- data %>%\n  group_by(continent, year) %>%\n  summarise(avg_lifeExp = mean(lifeExp),\n            avg_gdpPercap = mean(gdpPercap))\nhead(sum.df)\n\"  continent  year avg_lifeExp avg_gdpPercap\n  <fct>     <int>       <dbl>         <dbl>\n1 Africa     1952        39.1         1253.\n2 Africa     1957        41.3         1385.\n3 Africa     1962        43.3         1598.\n4 Africa     1967        45.3         2050.\n5 Africa     1972        47.5         2340.\n6 Africa     1977        49.6         2586.\""
+    "text": "creating the table\nLet’s create the summary table\n\nsum.df <- data %>%\n  group_by(continent, year) %>%\n  summarise(avg_lifeExp = mean(lifeExp),\n            avg_gdpPercap = mean(gdpPercap)) %>%\n  ungroup()\nhead(sum.df)\n\"  continent  year avg_lifeExp avg_gdpPercap\n  <fct>     <int>       <dbl>         <dbl>\n1 Africa     1952        39.1         1253.\n2 Africa     1957        41.3         1385.\n3 Africa     1962        43.3         1598.\n4 Africa     1967        45.3         2050.\n5 Africa     1972        47.5         2340.\n6 Africa     1977        49.6         2586.\""
   },
   {
     "objectID": "index.html#integrating-the-workflow-into-the-targets-package",
     "href": "index.html#integrating-the-workflow-into-the-targets-package",
     "title": "Targets Package Tutorial",
     "section": "integrating the workflow into the targets package!",
-    "text": "integrating the workflow into the targets package!\nLet’s create a function that returns the sum.df\nand save the function in an R script file “functions.R”\nunder the directory “…gapminder\\scripts” folder\n\nget_sum_table <- function(data){\n  #getting average life expectancy &  average gdpPercap per continent & year\n  sum.df <-  data %>%\n    group_by(continent, year) %>%\n    summarise(avg_lifeExp = mean(lifeExp),\n              avg_gdpPercap = mean(gdpPercap))\n  return(sum.df)\n}"
+    "text": "integrating the workflow into the targets package!\nLet’s create a function that returns the sum.df\nand save the function in an R script file “functions.R”\nunder the directory “…gapminder\\scripts” folder\n\nget_sum_table <- function(data){\n  #getting average life expectancy &  average gdpPercap per continent & year\n  sum.df <-  data %>%\n    group_by(continent, year) %>%\n    summarise(avg_lifeExp = mean(lifeExp),\n              avg_gdpPercap = mean(gdpPercap)) %>%\n  ungroup()\n  return(sum.df)\n}"
   },
   {
     "objectID": "index.html#creating-_targets.r",
@@ -215,6 +215,13 @@
     "title": "Targets Package Tutorial",
     "section": "Checking the workflow",
     "text": "Checking the workflow\nNow let’s check the workflow of our project\n\n#visualize the whole workflow\ntar_visnetwork()\n\nIf the _targets.R file has been wrongly set,\nit would generate an error message!"
+  },
+  {
+    "objectID": "index.html#checking-the-workflow-1",
+    "href": "index.html#checking-the-workflow-1",
+    "title": "Targets Package Tutorial",
+    "section": "Checking the workflow",
+    "text": "Checking the workflow"
   },
   {
     "objectID": "index.html#lets-run-this",
@@ -270,7 +277,7 @@
     "href": "index.html#with-targets",
     "title": "Targets Package Tutorial",
     "section": "With targets",
-    "text": "With targets\n\nWith targets you can do this automatically!\nLet"
+    "text": "With targets\n\nWith targets you can do this automatically!"
   },
   {
     "objectID": "index.html#example-setting",
@@ -280,17 +287,87 @@
     "text": "Example setting\n\nLet’s try to graph the temporal change of life expectancy of countries in each continent."
   },
   {
+    "objectID": "index.html#workflow",
+    "href": "index.html#workflow",
+    "title": "Targets Package Tutorial",
+    "section": "Workflow",
+    "text": "Workflow"
+  },
+  {
+    "objectID": "index.html#in-code",
+    "href": "index.html#in-code",
+    "title": "Targets Package Tutorial",
+    "section": "In code",
+    "text": "In code\n\nlibrary(targets)\nsource(\"scripts/functions/pattern_functions.R\")\n#source(\"R/different_code.R\")\n\n# # configuring the script it should run(run it one time and it will create an targets.yaml file in the project folder)\n# tar_config_set(script = \"scripts/2._targets_pattern.R\")\n\n# Set packages.\ntar_option_set(packages = c(\"qs\", \"dplyr\", \"stringr\", \"stringi\", \"ggplot2\", \"data.table\", \"gapminder\"),\n               format = \"qs\")"
+  },
+  {
+    "objectID": "index.html#in-code-1",
+    "href": "index.html#in-code-1",
+    "title": "Targets Package Tutorial",
+    "section": "In code",
+    "text": "In code\nlibrary(targets)\nsource(\"scripts/functions/pattern_functions.R\")\n#source(\"R/different_code.R\")\n\n# # configuring the script it should run(run it one time and it will create an targets.yaml file in the project folder)\n# tar_config_set(script = \"scripts/2._targets_pattern.R\")\n\n# Set packages.\ntar_option_set(packages = c(\"qs\", \"dplyr\", \"stringr\", \"stringi\", \"ggplot2\", \"data.table\", \"gapminder\"),\n               format = \"qs\")\n\n# End this file with a list of target objects.\nlist(\n  #reading in the gapminder data\n  tar_target(data, \n             as.data.table(gapminder::gapminder)),\n  \n  #getting the continents in the gapminder data\n  tar_target(continents, \n             sort(unique(data$continent))),"
+  },
+  {
+    "objectID": "index.html#in-code-2",
+    "href": "index.html#in-code-2",
+    "title": "Targets Package Tutorial",
+    "section": "In code",
+    "text": "In code\nDo the same process for each continent!\nlibrary(targets)\nsource(\"scripts/functions/pattern_functions.R\")\n#source(\"R/different_code.R\")\n\n# # configuring the script it should run(run it one time and it will create an targets.yaml file in the project folder)\n# tar_config_set(script = \"scripts/2._targets_pattern.R\")\n\n# Set packages.\ntar_option_set(packages = c(\"qs\", \"dplyr\", \"stringr\", \"stringi\", \"ggplot2\", \"data.table\", \"gapminder\"),\n               format = \"qs\")\n\n# End this file with a list of target objects.\nlist(\n  #reading in the gapminder data\n  tar_target(data, \n             as.data.table(gapminder::gapminder)),\n  \n  #getting the continents in the gapminder data\n  tar_target(continents, \n             sort(unique(data$continent))),\n             \n  #slicing the gapminder data by continents\n  tar_target(continents_data, \n             data[continent %in% continents],\n             pattern = map(continents)),\n  \n  #generating a graph of showing temporal changes of life expectancy of each country in each continent!\n  tar_target(get_graph,\n             gen_graph(continents_data),\n             pattern = map(continents_data))\n)"
+  },
+  {
+    "objectID": "index.html#resulted-graphs",
+    "href": "index.html#resulted-graphs",
+    "title": "Targets Package Tutorial",
+    "section": "Resulted Graphs",
+    "text": "Resulted Graphs"
+  },
+  {
+    "objectID": "index.html#resulted-graphs-1",
+    "href": "index.html#resulted-graphs-1",
+    "title": "Targets Package Tutorial",
+    "section": "Resulted Graphs",
+    "text": "Resulted Graphs"
+  },
+  {
+    "objectID": "index.html#resulted-graphs-2",
+    "href": "index.html#resulted-graphs-2",
+    "title": "Targets Package Tutorial",
+    "section": "Resulted Graphs",
+    "text": "Resulted Graphs"
+  },
+  {
+    "objectID": "index.html#resulted-graphs-3",
+    "href": "index.html#resulted-graphs-3",
+    "title": "Targets Package Tutorial",
+    "section": "Resulted Graphs",
+    "text": "Resulted Graphs"
+  },
+  {
+    "objectID": "index.html#resulted-graphs-4",
+    "href": "index.html#resulted-graphs-4",
+    "title": "Targets Package Tutorial",
+    "section": "Resulted Graphs",
+    "text": "Resulted Graphs"
+  },
+  {
     "objectID": "index.html#changing-the-namelocation-of-_targets.r",
     "href": "index.html#changing-the-namelocation-of-_targets.r",
     "title": "Targets Package Tutorial",
     "section": "changing the name/location of _targets.R",
-    "text": "changing the name/location of _targets.R\ntargets package automatically runs _targets.R file located at the project directory\nto change this,\n\n#telling targets to run _targets_pattern.R \n#located at \".../scripts\"\ntar_config_set(script = \"scripts/2._targets_pattern.R\")"
+    "text": "changing the name/location of _targets.R\n\ntargets package automatically runs _targets.R file located at the project directory\nto change this,\n\n#telling targets to run _targets_pattern.R \n#located at \".../scripts\"\ntar_config_set(script = \"scripts/2._targets_pattern.R\")"
+  },
+  {
+    "objectID": "index.html#changing-the-namelocation-of-_targets.r-1",
+    "href": "index.html#changing-the-namelocation-of-_targets.r-1",
+    "title": "Targets Package Tutorial",
+    "section": "changing the name/location of _targets.R",
+    "text": "changing the name/location of _targets.R\n\nOR\nCreate a _targets.yaml file at your project folder! Open a notepad, write the code lines below, and store it with the name: _targets.yaml.\n\nmain:\n  script: scripts/1._targets.R"
   },
   {
     "objectID": "index.html#changing-the-data-format-for-output-files",
     "href": "index.html#changing-the-data-format-for-output-files",
     "title": "Targets Package Tutorial",
     "section": "changing the data format for output files",
-    "text": "changing the data format for output files\nchanging to parquet format"
+    "text": "changing the data format for output files\nchanging to parquet format\n\n#for the whole pipeline!\ntar_option_set(format = \"parquet\") # you need to download the arrow package!\n\"Note that you can only have a dataframe(table) as an output for parquet!\"\n#for general purpose use qs instead\ntar_option_set(format = \"qs\") # you need to download the qs package!\n\n#for each step\ntar_target(step,\n           print(\"a step\"),\n           format = \"qs\")"
   }
 ]
