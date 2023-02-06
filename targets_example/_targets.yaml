@@ -1,0 +1,4 @@
+main:
+  # script: scripts/1._targets.R
+  script: scripts/2._targets_pattern.R
+  
