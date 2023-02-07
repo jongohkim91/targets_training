@@ -39,6 +39,13 @@
     "href": "index.html#example-2",
     "title": "Targets Package Tutorial",
     "section": "Example",
+    "text": "Example\n\nLet’s say I change the isco_code."
+  },
+  {
+    "objectID": "index.html#example-3",
+    "href": "index.html#example-3",
+    "title": "Targets Package Tutorial",
+    "section": "Example",
     "text": "Example\n\ntargets also allows users to automatically know how long each step and the whole process take"
   },
   {
@@ -165,7 +172,7 @@
     "href": "index.html#objective-of-this-project",
     "title": "Targets Package Tutorial",
     "section": "objective of this project",
-    "text": "objective of this project\n\nUsing a data set from the gapminder package,\ngenerating a table that contains\n\naverage life expectancy per continent and year\naverage GDP per capita per continent and year"
+    "text": "objective of this project\n\nUsing a data set from the gapminder package,\nlet’s generate a table that contains\n\naverage life expectancy per continent and year\naverage GDP per capita per continent and year"
   },
   {
     "objectID": "index.html#checking-the-data",

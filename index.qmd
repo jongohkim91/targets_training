@@ -89,7 +89,13 @@ you have
 
 <!--/html_preserve-->
 
-## Example
+## Example {auto-animate="true"}
+
+<br>
+
+Let's say I change the isco_code.
+
+## Example {auto-animate="true"}
 
 <br>
 
